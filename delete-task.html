@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <title>Shppong List</title>
+</head>
+
+<body>
+    <div class="container">
+    <h1 class="d-flex mt-5 justify-content-center">Shopping List</h1>
+
+    <form action="#" id="form-input" class="d-flex " style="flex-direction: column;">
+      <!-- Ad -->
+        <label for="inputName">Mehsulun adi</label>
+        <input type="text" placeholder="Name" class="input-name" id="inputName">
+        <!-- Say -->
+        <label for="inputNumber">Mehsulun sayi</label>
+        <input type="number" placeholder="Count" class="input-count" id="inputCount">
+       <!-- Qiymeti -->
+        <label for="inputPrice">Mehsulun Qiymeti</label>
+        <input type="text" placeholder="Price" class="input-price" id="inputPrice">
+         <!-- Barkodu -->
+        <label for="inputCode">Mehsulun Barkodu</label>
+        <input type="text" placeholder="BarCode" class="input-code" id="inputCode">
+    </form>
+    <button class="btn btn-danger mt-4" id="btn-submit" type="submit">Add Info</button>
+
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Product  Name</th>
+            <th scope="col">Product  Count</th>
+            <th scope="col">Product  Price</th>
+            <th scope="col">Product Barcode</th>
+
+          </tr>
+        </thead>
+        <!-- Table Body -->
+        <tbody class="table-body">
+       
+        </tbody>
+      </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    ></script>
+  
+</body>
+
+</html>

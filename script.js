@@ -1,106 +1,61 @@
-// Input
-let inputName = document.querySelector(".input-name");
-let inputCount = document.querySelector(".input-count");
-let inputPrice = document.querySelector(".input-price");
-let inputCode = document.querySelector(".input-code");
-let trr = document.getElementsByTagName("tr");
-// Button
-let btn = document.querySelector("#btn-submit");
-let delBtn = document.querySelector(".delete-btn");
-let upBtn = document.querySelector(".update-btn");
+const form = document.querySelector("#form-input");
+const table = document.querySelector(".table-body");
 
-// Table
-let table = document.querySelector(".table");
-let ttbody = document.querySelector(".table-body");
-let tr;
+let productList = [];
 
-let bodyTable = [];
-
-
-eventListeners();
-AddData();
-
-function eventListeners() {
-    btn.addEventListener("click", pushData);
-
-    btn.addEventListener("keypress", function (event) {
-
-        if (event.key == "Enter") {
-            document.querySelector("#btn-submit").click();
-        }
-
-        event.preventDefault();
-    })
+function randomId() {
+  return new Date().valueOf();
 }
 
+function submitForm(e) {
+  e.preventDefault();
+  var formData = new FormData(e.target);
 
+  const newProduct = {};
+  newProduct.id = randomId();
 
+  for (var product of formData.entries()) {
+    newProduct[product[0]] = product[1];
+  }
 
-function AddData(event) {
+  productList.push(newProduct);
 
-
-    for (let data of bodyTable) {
-
-        tr = `
-        <th scope="row">${data.id}</th>
-    <td>${inputName.value}</td>
-    <td>${inputCount.value}</td>
-    <td>${inputCode.value}</td>
-    <div class="dropdown">
-  <a class="btn btn-slink dropdown-toggle btn-danger" style="color:black" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-  ...
-  </a>
-
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-    <li><a class="dropdown-item delete-btn" onclick="deleteTask(${data.id})" href="#" >Delete</a></li>
-    <li><a class="dropdown-item update-btn"  href="#" >Update</a></li>
-  </ul>
-</div>`
-
-        ttbody.insertAdjacentHTML("beforeend", tr);
-
-
-
-        data.id++;
-        event.preventDefault();
-    }
-
-
-    event.preventDefault();
+  addProductToTable();
 }
 
-function pushData(event) {
+function addProductToTable() {
+  table.innerHTML = "";
 
+  for (let data of productList) {
+    const tr = `
+          <th scope="row">${data.id}</th>
+              <td>${data.name}</td>
+              <td>${data.count}</td>
+              <td>${data.barcode}</td>
+          <div class="dropdown">
+              <a class="btn btn-slink dropdown-toggle btn-danger" style="color:black" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+              ...
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  <li><a class="dropdown-item delete-btn" onclick="deleteTask(${data.id})" href="#" >Delete</a></li>
+                  <li><a class="dropdown-item update-btn"  href="#" >Update</a></li>
+              </ul>
+          </div>
+  `;
 
-    bodyTable.push({
-        "id": bodyTable.length + 1,
-        "name": inputName.value,
-        "code": inputCode.value,
-        "count": inputCount.value,
-        "price": inputPrice.value
-    })
-
-
-
-    AddData();
-    event.preventDefault();
+    table.insertAdjacentHTML("beforeend", tr);
+    resetForm();
+  }
 }
 
-
-function deleteTask(item) {
-    let deleteId;
-
-    for (let i in bodyTable) {
-
-        if (bodyTable[i].id == item) {
-
-            deleteId = i;
-        }
-
-    }
-
-    bodyTable.splice(deleteId, 1);
-
-
-
+function resetForm() {
+  form.reset();
 }
+
+function deleteTask(id) {
+  productList = productList.filter((product) => product.id !== id);
+  resetForm();
+  addProductToTable();
+}
+
+form.addEventListener("submit", submitForm);
